@@ -135,71 +135,72 @@
         document.getElementById('round').innerHTML = 'Round: ' + round;
         
         const computerPlay = () => {
-            return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+            return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)]; //Returns RANDOM index from the Array.
         }
-        
+        // The next 3 functions are getting player move from the buttons. They set the player and computer Selections and play a round.
         const rockMove = () => {
             playerSelection = 'Rock';
             let computerSelection = computerPlay();
             playRound(playerSelection, computerSelection);
-            //console.log(computerSelection);
         }
         
         const paperMove = () => {
             playerSelection = 'Paper';
             let computerSelection = computerPlay();
             playRound(playerSelection, computerSelection);
-            //console.log(computerSelection);
         }
         
         const scissorsMove = () => {
             playerSelection = 'Scissors';
             let computerSelection = computerPlay();
             playRound(playerSelection, computerSelection);
-            //console.log(computerSelection);
         }
         
-        const addPlayerScore = () => {
+        const addPlayerScore = () => { // Function used when player wins a round. Increases score and shows it.
             playerScore++;
             document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
         }
         
-        const addComputerScore = () => {
+        const addComputerScore = () => { // Function used when computer wins a round. Increases score and shows it.
             computerScore++;
             document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
         }
         
-        const finishRound = () => {
+        const finishRound = () => { // Function used in every playRound initialization. Increases round and shows it.
             round++;
             document.getElementById('round').innerHTML = 'Round: ' + round;
         }
         
-        const finishMatchPlayerWin = () => {
+        const finishMatchPlayerWin = () => { // Function used accordingly when player wins (playerScore === 5)
             document.getElementById('winner').innerHTML = 'You won the match! Would you like to play another match?'; 
         }
         
-        const finishMatchComputerWin = () => {
+        const finishMatchComputerWin = () => { // Function used accordingly when computer wins (playerScore === 5)
             document.getElementById('winner').innerHTML = 'You lost the match! Would you like to play another match?';
-        }
+        } //There is an easier way to do this I know, I was just experimenting with functions and getting out of my comfort zone with using them.
         
-        const newMatch = () => {
+        const newMatch = () => { // Function (used with button "Yes" in DOM) to initialize another function to reset the game.
             resetGame();
         }
         
-        const quitGame = () => {
+        const quitGame = () => { // Function (used with button "No" in DOM) to simply hide all buttons and say Thanks for playing.
             document.getElementById('roundResult').innerHTML = 'Thanks for playing!';
             document.getElementById('matchDiv').style.display = 'none';
         }
         
-        const resetGame = () => {
+        const resetGame = () => { // If player pressed Yes when asked if he wants another match, it initializes this function.
+            // Resetting the values:
             playerScore = 0;
             computerScore = 0;
             round = 0;
+            
+            // Shows the buttons used to pick a move.
             let pickButtons = document.getElementsByClassName('pickButtons');
             for (let i = 0; i<pickButtons.length; i++){
                 pickButtons[i].style.display = 'inline-block';
             }
-                
+            
+            // Resets the results shown on the page.
             document.getElementById('matchDiv').style.display = 'none';
             document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
             document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
@@ -207,11 +208,11 @@
             document.getElementById('roundResult').innerHTML = 'Round Result: ';
         }
         
-        //let newGame = false;
-        //let computerSelection = computerPlay();
         let playerSelection = '';
         let maxScore = 5;
         
+        
+        // playRound with basic logic.
         const playRound = (playerMove, computerMove) => { finishRound();
             if (playerMove === computerMove) { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'It\'s a draw!'; }
             else {
@@ -233,14 +234,16 @@
                     break;
                 }
             }
-        if (playerScore === 5) { finishMatchPlayerWin(); }
-        if (computerScore === 5) { finishMatchComputerWin(); }
-            if(playerScore === 5 || computerScore === 5){
-                
+        if (playerScore === maxScore) { finishMatchPlayerWin(); } // Shows that player won the match.
+        if (computerScore === maxScore) { finishMatchComputerWin(); } // Shows that computer won the match.
+            if(playerScore === maxScore || computerScore === maxScore){ // Should have put this as a function itself.
+                // If match has ended (playerScore or computerScore === 5), hides the buttons used to pick a move.
                 let pickButtons = document.getElementsByClassName('pickButtons');
                 for (let i = 0; i<pickButtons.length; i++){
                     pickButtons[i].style.display = 'none';
                 }
+                
+                // At the same time shows the buttons used to determine whether player wants to play another match (Yes/No buttons).
                 document.getElementById('matchDiv').style.display = 'block';
                 
             }
