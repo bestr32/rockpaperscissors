@@ -1,0 +1,250 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <style>
+        body{
+            margin: 0 auto;
+        }
+        .pickButtons{
+            background-color: #333333;
+            border: 3px solid #BBBBBB;
+            padding: 15px 17px 15px 17px;
+            outline: none !important;
+            cursor: pointer;
+            color: #888888;
+            font-weight: bold;
+            transition: 0.3s;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .pickButtons:hover{
+            border: 3px solid lightgray;
+            box-shadow: 2px 2px 5px -2px;
+            background-color: #E8E8E8;
+            color: black;
+            transition: 0.3s;
+            border-radius: 15px;
+        }
+        
+        .matchButtons{
+            border: 3px solid transparent;
+            padding: 10px 25px 10px 25px;
+            margin: 80px;
+            outline: none !important;
+            cursor: pointer;
+            color: #888888;
+            font-weight: bold;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        
+        .matchButtons:hover{
+            border: 3px solid lightgray;
+            box-shadow: 2px 2px 5px -2px;
+            background-color: #E8E8E8;
+            color: black;
+            transition: 0.3s;
+            border-radius: 15px;
+        }
+        #matchDiv{
+            display: none;
+            margin-top: 50px;
+        }
+        
+        .gameResults{
+            font-size: 30px;
+            font-weight: 800;
+            color: lightblue;
+            -webkit-text-stroke: 1px grey;
+        }
+        
+        #gameScore{
+            display: flex;
+            margin-top: 50px;
+        }
+        
+        #gameScore > p {
+            margin-left: 500px;
+            margin: 0 auto;
+        }
+        
+        #gameButtons{
+            display: flex;
+        }
+        
+        #gameButtons > .pickButtons{
+            margin: 0 auto;
+            margin-bottom: 25px;
+            margin-top: 100px;
+        }
+        
+        .gameResults{
+            margin: 0 auto;
+            margin-top: 20px;
+            
+        }
+        
+        h1{
+            color: lightskyblue;
+            margin: 0 auto;
+            -webkit-text-stroke: 2px black;
+            font-size: 50px;
+        }
+        
+        #winner{
+            font-size: 30px;
+            font-weight: 800;
+            color: lightblue;
+            -webkit-text-stroke: 1px grey;
+        }
+    </style>
+    <body>
+        <center><h1>Rock, Paper, Scissors</h1></center>
+        <div id="gameButtons">
+            <button class="pickButtons" onclick="rockMove()">Rock</button>
+            <button class="pickButtons" onclick="paperMove()">Paper</button>
+            <button class="pickButtons" onclick="scissorsMove()">Scissors</button>
+        </div>
+        <center>
+            <div id="matchDiv">
+                <p id="winner"> A</p>
+                <button class="matchButtons" onclick="newMatch()">Yes</button>
+                <button class="matchButtons" onclick="quitGame()">No</button>
+            </div>
+        </center>
+        <div id="gameScore">
+            <p id="playerScore" class="gameResults">Player Score: </p>
+            <p id="computerScore" class="gameResults">Computer Score: </p>
+        </div>
+        <center>
+            <p id="round" class="gameResults">Round: </p>
+            <p id="roundResult" class="gameResults">Round Result: </p>
+        </center>
+    </body>
+    <script>
+        
+        let playerScore = 0;
+        let computerScore = 0;
+        let round = 0;
+        
+        document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
+        document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
+        document.getElementById('round').innerHTML = 'Round: ' + round;
+        
+        const computerPlay = () => {
+            return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
+        }
+        
+        const rockMove = () => {
+            playerSelection = 'Rock';
+            let computerSelection = computerPlay();
+            playRound(playerSelection, computerSelection);
+            //console.log(computerSelection);
+        }
+        
+        const paperMove = () => {
+            playerSelection = 'Paper';
+            let computerSelection = computerPlay();
+            playRound(playerSelection, computerSelection);
+            //console.log(computerSelection);
+        }
+        
+        const scissorsMove = () => {
+            playerSelection = 'Scissors';
+            let computerSelection = computerPlay();
+            playRound(playerSelection, computerSelection);
+            //console.log(computerSelection);
+        }
+        
+        const addPlayerScore = () => {
+            playerScore++;
+            document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
+        }
+        
+        const addComputerScore = () => {
+            computerScore++;
+            document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
+        }
+        
+        const finishRound = () => {
+            round++;
+            document.getElementById('round').innerHTML = 'Round: ' + round;
+        }
+        
+        const finishMatchPlayerWin = () => {
+            document.getElementById('winner').innerHTML = 'You won the match! Would you like to play another match?'; 
+        }
+        
+        const finishMatchComputerWin = () => {
+            document.getElementById('winner').innerHTML = 'You lost the match! Would you like to play another match?';
+        }
+        
+        const newMatch = () => {
+            resetGame();
+        }
+        
+        const quitGame = () => {
+            document.getElementById('roundResult').innerHTML = 'Thanks for playing!';
+            document.getElementById('matchDiv').style.display = 'none';
+        }
+        
+        const resetGame = () => {
+            playerScore = 0;
+            computerScore = 0;
+            round = 0;
+            let pickButtons = document.getElementsByClassName('pickButtons');
+            for (let i = 0; i<pickButtons.length; i++){
+                pickButtons[i].style.display = 'inline-block';
+            }
+                
+            document.getElementById('matchDiv').style.display = 'none';
+            document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
+            document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
+            document.getElementById('round').innerHTML = 'Round: ' + round;
+            document.getElementById('roundResult').innerHTML = 'Round Result: ';
+        }
+        
+        //let newGame = false;
+        //let computerSelection = computerPlay();
+        let playerSelection = '';
+        let maxScore = 5;
+        
+        const playRound = (playerMove, computerMove) => { finishRound();
+            if (playerMove === computerMove) { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'It\'s a draw!'; }
+            else {
+                switch(playerMove) {
+                    case 'Rock': {
+                        if (computerMove === 'Scissors') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                    } 
+                    break;
+                    case 'Paper': {
+                        if (computerMove === 'Rock') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                    } 
+                    break;
+                    case 'Scissors': {
+                        if(computerMove === 'Paper') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                    } 
+                    break;
+                }
+            }
+        if (playerScore === 5) { finishMatchPlayerWin(); }
+        if (computerScore === 5) { finishMatchComputerWin(); }
+            if(playerScore === 5 || computerScore === 5){
+                
+                let pickButtons = document.getElementsByClassName('pickButtons');
+                for (let i = 0; i<pickButtons.length; i++){
+                    pickButtons[i].style.display = 'none';
+                }
+                document.getElementById('matchDiv').style.display = 'block';
+                
+            }
+        }
+    </script>
+</html>
+
