@@ -105,9 +105,9 @@
     <body>
         <center><h1>Rock, Paper, Scissors</h1></center>
         <div id="gameButtons">
-            <button class="pickButtons" onclick="rockMove()">Rock</button>
-            <button class="pickButtons" onclick="paperMove()">Paper</button>
-            <button class="pickButtons" onclick="scissorsMove()">Scissors</button>
+            <button class="pickButtons">Rock</button>
+            <button class="pickButtons">Paper</button>
+            <button class="pickButtons">Scissors</button>
         </div>
         <center>
             <div id="matchDiv">
@@ -131,9 +131,9 @@
         let computerScore = 0;
         let round = 0;
         
-        document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
-        document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
-        document.getElementById('round').innerHTML = 'Round: ' + round;
+        document.getElementById('playerScore').textContent = 'Player Score: ' + playerScore;
+        document.getElementById('computerScore').textContent = 'Computer Score: ' + computerScore;
+        document.getElementById('round').textContent = 'Round: ' + round;
         
         const computerPlay = () => {
             return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)]; //Returns RANDOM index from the Array.
@@ -159,25 +159,25 @@
         
         const addPlayerScore = () => { // Function used when player wins a round. Increases score and shows it.
             playerScore++;
-            document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
+            document.getElementById('playerScore').textContent = 'Player Score: ' + playerScore;
         }
         
         const addComputerScore = () => { // Function used when computer wins a round. Increases score and shows it.
             computerScore++;
-            document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
+            document.getElementById('computerScore').textContent = 'Computer Score: ' + computerScore;
         }
         
         const finishRound = () => { // Function used in every playRound initialization. Increases round and shows it.
             round++;
-            document.getElementById('round').innerHTML = 'Round: ' + round;
+            document.getElementById('round').textContent = 'Round: ' + round;
         }
         
         const finishMatchPlayerWin = () => { // Function used accordingly when player wins (playerScore === 5)
-            document.getElementById('winner').innerHTML = 'You won the match! Would you like to play another match?'; 
+            document.getElementById('winner').textContent = 'You won the match! Would you like to play another match?'; 
         }
         
         const finishMatchComputerWin = () => { // Function used accordingly when computer wins (playerScore === 5)
-            document.getElementById('winner').innerHTML = 'You lost the match! Would you like to play another match?';
+            document.getElementById('winner').textContent = 'You lost the match! Would you like to play another match?';
         } //There is an easier way to do this I know, I was just experimenting with functions and getting out of my comfort zone with using them.
         
         const newMatch = () => { // Function (used with button "Yes" in DOM) to initialize another function to reset the game.
@@ -185,7 +185,7 @@
         }
         
         const quitGame = () => { // Function (used with button "No" in DOM) to simply hide all buttons and say Thanks for playing.
-            document.getElementById('roundResult').innerHTML = 'Thanks for playing!';
+            document.getElementById('roundResult').textContent = 'Thanks for playing!';
             document.getElementById('matchDiv').style.display = 'none';
         }
         
@@ -203,34 +203,34 @@
             
             // Resets the results shown on the page.
             document.getElementById('matchDiv').style.display = 'none';
-            document.getElementById('playerScore').innerHTML = 'Player Score: ' + playerScore;
-            document.getElementById('computerScore').innerHTML = 'Computer Score: ' + computerScore;
-            document.getElementById('round').innerHTML = 'Round: ' + round;
-            document.getElementById('roundResult').innerHTML = 'Round Result: ';
+            document.getElementById('playerScore').textContent = 'Player Score: ' + playerScore;
+            document.getElementById('computerScore').textContent = 'Computer Score: ' + computerScore;
+            document.getElementById('round').textContent = 'Round: ' + round;
+            document.getElementById('roundResult').textContent = 'Round Result: ';
         }
         
         let playerSelection = '';
         let maxScore = 5;
         
         
-        // playRound with basic logic.
+        // playRound function with basic logic.
         const playRound = (playerMove, computerMove) => { finishRound();
-            if (playerMove === computerMove) { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'It\'s a draw!'; }
+            if (playerMove === computerMove) { document.getElementById('roundResult').textContent = 'Round Result: ' + 'It\'s a draw!'; }
             else {
                 switch(playerMove) {
                     case 'Rock': {
-                        if (computerMove === 'Scissors') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
-                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                        if (computerMove === 'Scissors') { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
                     } 
                     break;
                     case 'Paper': {
-                        if (computerMove === 'Rock') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
-                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                        if (computerMove === 'Rock') { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
                     } 
                     break;
                     case 'Scissors': {
-                        if(computerMove === 'Paper') { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
-                        else { document.getElementById('roundResult').innerHTML = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
+                        if(computerMove === 'Paper') { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You win! ' + playerMove + ' beats ' + computerMove + '.'; addPlayerScore(); }
+                        else { document.getElementById('roundResult').textContent = 'Round Result: ' + 'You lose! ' + computerMove + ' beats ' + playerMove + '.'; addComputerScore(); }
                     } 
                     break;
                 }
@@ -249,6 +249,15 @@
                 
             }
         }
+        
+        const pickButtons = document.querySelectorAll('.pickButtons');
+        pickButtons[0].addEventListener('click', rockMove);
+        pickButtons[1].addEventListener('click', paperMove);
+        pickButtons[2].addEventListener('click', scissorsMove);
+        
+        const matchButtons = document.querySelectorAll('.matchButtons');
+        matchButtons[0].addEventListener('click', newMatch);
+        matchButtons[1].addEventListener('click', quitGame);
     </script>
 </html>
 
